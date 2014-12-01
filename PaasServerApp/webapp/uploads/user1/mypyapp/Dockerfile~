@@ -1,0 +1,17 @@
+# Use the base image to ubuntu:pythonbase
+FROM ubuntu:pythonbase
+
+# File Author / Maintainer
+MAINTAINER team2
+
+ENV https_proxy https://proxy.iiit.ac.in:8080
+ENV http_proxy http://proxy.iiit.ac.in:8080
+RUN export http_proxy=$http_proxy
+RUN export https_proxy=$https_proxy
+
+EXPOSE 80
+
+ADD ./myapp /app
+RUN pip install -r /app/dependencies
+WORKDIR /app
+CMD python server.py
